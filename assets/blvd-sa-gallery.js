@@ -32,15 +32,15 @@
       }
     };
     document.querySelectorAll('[style*="spain-landmarks"]').forEach((el) => {
+      if (el.dataset.blvdUpgraded === '1') return;
       const st = el.getAttribute('style') || '';
       for (const [key, val] of Object.entries(map)) {
-        if (st.includes(key)) {
-          el.style.backgroundImage = val.bg;
-          // also set -webkit for older
-          el.style.setProperty('background-image', `-webkit-${val.bg}`);
+        if (st.includes(key) || (el.style.backgroundImage || '').includes(key)) {
           el.style.backgroundImage = val.bg;
           el.style.backgroundSize = 'cover';
           el.style.backgroundPosition = 'center';
+          el.dataset.blvdUpgraded = '1';
+          break;
         }
       }
     });
@@ -299,16 +299,25 @@
   }
 
   ready(() => {
-    upgradeLandmarkImages();
-    buildGallery();
-    bumpContrast();
+    let busy = false;
+    const run = () => {
+      if (busy) return;
+      busy = true;
+      try {
+        upgradeLandmarkImages();
+        buildGallery();
+        bumpContrast();
+      } finally {
+        busy = false;
+      }
+    };
+    run();
     // re-run after hydration
-    setTimeout(() => { upgradeLandmarkImages(); buildGallery(); bumpContrast(); }, 400);
-    setTimeout(() => { upgradeLandmarkImages(); buildGallery(); bumpContrast(); }, 1500);
+    setTimeout(run, 400);
+    setTimeout(run, 1500);
     try {
       const mo = new MutationObserver(() => {
-        if (!document.getElementById('blvd-gallery')) buildGallery();
-        upgradeLandmarkImages();
+        if (!document.getElementById('blvd-gallery')) run();
       });
       mo.observe(document.documentElement, { childList: true, subtree: true });
       setTimeout(() => { try { mo.disconnect(); } catch (e) {} }, 10000);

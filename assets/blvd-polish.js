@@ -202,6 +202,7 @@
     setTimeout(enhance, 800);
     setTimeout(enhance, 2000);
   });
+})();
 
 (function(){
   var TITLE='أسبانيا', SUB='منطقة أسبانيا';
@@ -221,17 +222,36 @@
     wrap.appendChild(t); wrap.appendChild(s);
     return wrap;
   }
+  var __blvdHeroBusy=false;
   function paint(el){
     if(!el) return;
-    el.style.opacity='1'; el.style.visibility='visible';
-    el.style.background='#1f1f22'; el.style.backgroundColor='#1f1f22';
-    el.style.color='#ffffff'; el.classList.remove('blvd-reveal');
+    if(el.style.opacity!=='1') el.style.opacity='1';
+    if(el.style.visibility!=='visible') el.style.visibility='visible';
+    if(el.style.backgroundColor!=='rgb(31, 31, 34)' && el.style.background!=='#1f1f22'){
+      el.style.background='#1f1f22'; el.style.backgroundColor='#1f1f22';
+    }
+    if(el.style.color!=='rgb(255, 255, 255)' && el.style.color!=='#ffffff') el.style.color='#ffffff';
+    el.classList.remove('blvd-reveal');
     var tt=el.querySelector('.blvd-hero-spain-title');
     var ss=el.querySelector('.blvd-hero-spain-sub');
-    if(tt){ tt.textContent=TITLE; tt.style.opacity='1'; tt.style.visibility='visible'; tt.style.color='#ffffff'; tt.style.webkitTextFillColor='#ffffff'; }
-    if(ss){ ss.textContent=SUB; ss.style.opacity='1'; ss.style.visibility='visible'; ss.style.color='#e9e9e9'; ss.style.webkitTextFillColor='#e9e9e9'; }
+    if(tt){
+      if(tt.textContent!==TITLE) tt.textContent=TITLE;
+      if(tt.style.opacity!=='1') tt.style.opacity='1';
+      if(tt.style.visibility!=='visible') tt.style.visibility='visible';
+      if(tt.style.color!=='#ffffff' && tt.style.color!=='rgb(255, 255, 255)') tt.style.color='#ffffff';
+      tt.style.webkitTextFillColor='#ffffff';
+    }
+    if(ss){
+      if(ss.textContent!==SUB) ss.textContent=SUB;
+      if(ss.style.opacity!=='1') ss.style.opacity='1';
+      if(ss.style.visibility!=='visible') ss.style.visibility='visible';
+      if(ss.style.color!=='#e9e9e9' && ss.style.color!=='rgb(233, 233, 233)') ss.style.color='#e9e9e9';
+      ss.style.webkitTextFillColor='#e9e9e9';
+    }
   }
   function ensure(){
+    if(__blvdHeroBusy) return;
+    __blvdHeroBusy=true;
     try{
       var existing=document.querySelector('.blvd-hero-spain');
       if(existing){ paint(existing); return; }
@@ -250,6 +270,7 @@
         if(col) col.insertBefore(wrap, col.firstChild);
       }
     }catch(e){}
+    finally{ __blvdHeroBusy=false; }
   }
   ensure();
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ensure);
