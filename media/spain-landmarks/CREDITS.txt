@@ -6,3 +6,6 @@ Spanish landmark photos (Wikimedia Commons), resized for web.
 - card4.webp: Royal Palace of Madrid.jpg — Wikimedia Commons
 - card5.webp: Mezquita-Catedral de Córdoba.jpg — Wikimedia Commons
 See each file's Commons page for author and license (typically CC BY-SA / CC BY / Public Domain).
+
+Upgraded 2026-10-28 with higher-resolution Commons sources + responsive srcset (-800w/-1600w/-2400w webp).
+card3 now uses Park Güell (Parc Guell Barcelona) CC BY-SA 4.0.
