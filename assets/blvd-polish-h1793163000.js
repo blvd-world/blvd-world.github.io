@@ -7,7 +7,9 @@
   const ensureFab = () => {
     if (document.getElementById('blvd-wa-fab')) return;
     const host = (location.hostname || '').toLowerCase();
-    const href = 'https://wa.me/966541102224';
+    const href = host.includes('boulevard-world')
+      ? 'https://wa.me/966543333994'
+      : 'https://wa.me/966544902266';
     const a = document.createElement('a');
     a.id = 'blvd-wa-fab';
     a.className = 'blvd-wa-fab';
@@ -67,11 +69,16 @@
     // Soft header elevation on scroll
     const header = document.querySelector('header.sticky, header.no-print');
     if (header) {
+      let __blvdScrollRaf = 0;
       const onScroll = () => {
-        header.style.boxShadow =
-          window.scrollY > 8
-            ? '0 12px 36px -18px rgba(0,0,0,0.9), 0 0 0 1px rgba(195,62,111,0.12)'
-            : '';
+        if (__blvdScrollRaf) return;
+        __blvdScrollRaf = requestAnimationFrame(() => {
+          __blvdScrollRaf = 0;
+          header.style.boxShadow =
+            window.scrollY > 8
+              ? '0 12px 36px -18px rgba(0,0,0,0.9), 0 0 0 1px rgba(195,62,111,0.12)'
+              : '';
+        });
       };
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
@@ -95,145 +102,64 @@
   };
 })();
 
-/* —— PRO boot (blvd-world) —— */
-(function () {
-  const WA = 'https://wa.me/966541102224';
-  const DISPLAY = '00966541102224';
-
-  function ready(fn) {
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
-    else fn();
-  }
-
-  function enhance() {
-    document.body.classList.add('blvd-pro');
-
-    // Section numbering for major anchors
-    const order = [
-      ['momentum', '01'],
-      ['reasons', '02'],
-      ['about', '03'],
-      ['spain', '04'],
-      ['boards', '05'],
-      ['plan', '06'],
-      ['zones', '07'],
-      ['visit', '08'],
-      ['contact', '09'],
-    ];
-    order.forEach(([id, num]) => {
-      const sec = document.getElementById(id);
-      if (!sec || sec.querySelector('.blvd-sec-num')) return;
-      const kicker = sec.querySelector('p.latin, p.text-sm.font-medium, p.text-gold, .latin.text-sm');
-      if (!kicker) return;
-      const badge = document.createElement('span');
-      badge.className = 'blvd-sec-num';
-      badge.textContent = num;
-      const wrap = document.createElement('div');
-      wrap.className = 'blvd-sec-head';
-      kicker.parentNode.insertBefore(wrap, kicker);
-      wrap.appendChild(badge);
-      wrap.appendChild(kicker);
-    });
-
-    // Hero WA CTA — insert next to existing hero buttons if missing
-    if (!document.querySelector('.blvd-hero-cta-wa')) {
-      const h1 = document.querySelector('h1');
-      if (h1) {
-        let row = h1.parentElement && h1.parentElement.querySelector('.mt-8.flex, .mt-8.flex-wrap, div.mt-8');
-        if (!row) {
-          // find flex wrap near hero
-          const root = h1.closest('section, div') || h1.parentElement;
-          row = root && root.querySelector('.mt-8.flex, .flex.flex-wrap.gap-3');
-        }
-        const a = document.createElement('a');
-        a.className = 'blvd-hero-cta-wa';
-        a.href = WA;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.setAttribute('aria-label', 'تواصل واتساب ' + DISPLAY);
-        a.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.486 2 2 6.486 2 12c0 1.77.463 3.427 1.272 4.872L2.05 21.95l5.22-1.196A9.94 9.94 0 0 0 12 22c5.514 0 10-4.486 10-10S17.514 2 12 2zm0 18.125a8.1 8.1 0 0 1-4.25-1.19l-.305-.18-3.096.71.72-3.02-.198-.318A8.07 8.07 0 0 1 3.875 12 8.13 8.13 0 0 1 12 3.875 8.13 8.13 0 0 1 20.125 12 8.13 8.13 0 0 1 12 20.125z"/></svg><span dir="ltr">' + DISPLAY + '</span>';
-        if (row) row.appendChild(a);
-        else h1.insertAdjacentElement('afterend', a);
-      }
-    }
-
-    // Footer professional wrap
-    const footer = document.querySelector('footer');
-    if (footer && !footer.querySelector('.blvd-footer-pro')) {
-      const dossier = footer.querySelector('.dossier') || footer;
-      const kids = Array.from(dossier.children);
-      const wrap = document.createElement('div');
-      wrap.className = 'blvd-footer-pro';
-      const left = document.createElement('div');
-      const brand = document.createElement('p');
-      brand.className = 'blvd-footer-brand';
-      brand.textContent = 'بوليفارد وورلد — المنطقة الإسبانية';
-      left.appendChild(brand);
-      kids.forEach((el) => left.appendChild(el));
-      const right = document.createElement('div');
-      const wa = document.createElement('a');
-      wa.className = 'blvd-footer-wa';
-      wa.href = WA;
-      wa.target = '_blank';
-      wa.rel = 'noopener noreferrer';
-      wa.innerHTML = 'WhatsApp · <span dir="ltr">' + DISPLAY + '</span>';
-      right.appendChild(wa);
-      wrap.appendChild(left);
-      wrap.appendChild(right);
-      dossier.appendChild(wrap);
-    }
-
-    // Ensure reasons in sticky nav if missing
-    const nav = document.querySelector('header nav');
-    if (nav && !nav.querySelector('a[href="#reasons"]') && document.getElementById('reasons')) {
-      const a = document.createElement('a');
-      a.href = '#reasons';
-      a.textContent = 'الأسباب';
-      a.className = nav.querySelector('a')?.className || '';
-      const contact = nav.querySelector('a[href="#contact"]');
-      if (contact) nav.insertBefore(a, contact);
-      else nav.appendChild(a);
-    }
-  }
-
-  ready(() => {
-    enhance();
-    // Re-apply after hydration
-    setTimeout(enhance, 800);
-    setTimeout(enhance, 2000);
-  });
-
-
 (function(){
   var TITLE='أسبانيا', SUB='منطقة أسبانيا';
+  var __blvdHeroBusy=false;
+  var __blvdHeroRaf=0;
+  var __blvdHeroMo=null;
+  var __blvdHeroDone=false;
   function build(){
     var wrap=document.createElement('div');
     wrap.className='blvd-hero-spain';
     wrap.setAttribute('data-blvd-hero','1');
+    wrap.setAttribute('data-react-exempt','1');
+    wrap.style.cssText='opacity:1;visibility:visible;background:#1f1f22;color:#fff;position:relative;z-index:5;padding:0.85rem 1rem;border-radius:0.75rem;';
     var t=document.createElement('p');
     t.className='blvd-hero-spain-title';
     t.textContent=TITLE;
+    t.style.cssText='opacity:1;visibility:visible;color:#ffffff;-webkit-text-fill-color:#ffffff;font-weight:800;margin:0;';
     var s=document.createElement('p');
     s.className='blvd-hero-spain-sub';
     s.textContent=SUB;
+    s.style.cssText='opacity:1;visibility:visible;color:#e9e9e9;-webkit-text-fill-color:#e9e9e9;font-weight:700;margin:0.35rem 0 0;';
     wrap.appendChild(t); wrap.appendChild(s);
     return wrap;
   }
+  function paint(el){
+    if(!el) return;
+    if(el.style.opacity!=='1') el.style.opacity='1';
+    if(el.style.visibility!=='visible') el.style.visibility='visible';
+    if(el.style.background!=='#1f1f22'){ el.style.background='#1f1f22'; el.style.backgroundColor='#1f1f22'; }
+    if(el.style.color!=='#ffffff' && el.style.color!=='rgb(255, 255, 255)') el.style.color='#ffffff';
+    el.classList.remove('blvd-reveal');
+    var tt=el.querySelector('.blvd-hero-spain-title');
+    var ss=el.querySelector('.blvd-hero-spain-sub');
+    if(tt){
+      if(tt.textContent!==TITLE) tt.textContent=TITLE;
+      tt.style.opacity='1'; tt.style.visibility='visible';
+      tt.style.color='#ffffff'; tt.style.webkitTextFillColor='#ffffff';
+    }
+    if(ss){
+      if(ss.textContent!==SUB) ss.textContent=SUB;
+      ss.style.opacity='1'; ss.style.visibility='visible';
+      ss.style.color='#e9e9e9'; ss.style.webkitTextFillColor='#e9e9e9';
+    }
+  }
   function ensure(){
+    if(__blvdHeroBusy || __blvdHeroDone) return;
+    __blvdHeroBusy=true;
     try{
+      if(__blvdHeroMo){ try{ __blvdHeroMo.disconnect(); }catch(e){} }
       var existing=document.querySelector('.blvd-hero-spain');
       if(existing){
-        var tt=existing.querySelector('.blvd-hero-spain-title');
-        var ss=existing.querySelector('.blvd-hero-spain-sub');
-        if(tt){ tt.textContent=TITLE; tt.style.opacity='1'; tt.style.visibility='visible'; }
-        if(ss){ ss.textContent=SUB; ss.style.opacity='1'; ss.style.visibility='visible'; }
-        existing.style.opacity='1'; existing.style.visibility='visible';
-        existing.classList.remove('blvd-reveal');
+        paint(existing);
+        __blvdHeroDone=true;
+        if(__blvdHeroMo){ try{ __blvdHeroMo.disconnect(); __blvdHeroMo=null; }catch(e){} }
         return;
       }
       var main=document.querySelector('main#top, main');
       if(!main) return;
-      var col=main.querySelector('.md\\:col-span-7, [class*="col-span-7"]') || main.querySelector('section .dossier > div, section > div');
+      // Prefer insert OUTSIDE React-managed first child when possible: after main's first section kicker
       var kicker=null;
       var nodes=main.querySelectorAll('p');
       for(var i=0;i<nodes.length;i++){
@@ -242,22 +168,49 @@
       var wrap=build();
       if(kicker && kicker.parentNode){
         kicker.parentNode.insertBefore(wrap, kicker);
-      } else if(col){
-        col.insertBefore(wrap, col.firstChild);
+      } else {
+        var col=main.querySelector('[class*="col-span-7"]') || main.querySelector('section > div');
+        if(col) col.insertBefore(wrap, col.firstChild);
+        else return;
       }
+      __blvdHeroDone=true;
+      if(__blvdHeroMo){ try{ __blvdHeroMo.disconnect(); __blvdHeroMo=null; }catch(e){} }
+    }catch(e){}
+    finally{
+      __blvdHeroBusy=false;
+      // Only re-observe if not done yet (main not ready)
+      if(!__blvdHeroDone && __blvdHeroMo){
+        try{ __blvdHeroMo.observe(document.documentElement,{childList:true,subtree:true}); }catch(e){}
+      }
+    }
+  }
+  function schedule(){
+    if(__blvdHeroRaf || __blvdHeroDone) return;
+    __blvdHeroRaf=requestAnimationFrame(function(){
+      __blvdHeroRaf=0;
+      ensure();
+    });
+  }
+  // AFTER hydration: wait for window load, then two rAFs + short timeout
+  function startAfterHydration(){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        setTimeout(schedule, 0);
+        setTimeout(schedule, 200);
+        setTimeout(schedule, 800);
+        setTimeout(schedule, 2000);
+      });
+    });
+    try{
+      __blvdHeroMo=new MutationObserver(function(){ if(!__blvdHeroDone) schedule(); });
+      // Delay observing until after hydrate window
+      setTimeout(function(){
+        if(__blvdHeroDone || !__blvdHeroMo) return;
+        try{ __blvdHeroMo.observe(document.documentElement,{childList:true,subtree:true}); }catch(e){}
+      }, 600);
+      setTimeout(function(){ try{ if(__blvdHeroMo){ __blvdHeroMo.disconnect(); __blvdHeroMo=null; } }catch(e){} }, 6000);
     }catch(e){}
   }
-  ensure();
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ensure);
-  setTimeout(ensure, 0);
-  setTimeout(ensure, 250);
-  setTimeout(ensure, 1000);
-  setTimeout(ensure, 2500);
-  try{
-    var mo=new MutationObserver(function(){ ensure(); });
-    mo.observe(document.documentElement,{childList:true,subtree:true});
-    setTimeout(function(){ try{mo.disconnect();}catch(e){} }, 8000);
-  }catch(e){}
-})();
-
+  if(document.readyState==='complete') startAfterHydration();
+  else window.addEventListener('load', startAfterHydration);
 })();
