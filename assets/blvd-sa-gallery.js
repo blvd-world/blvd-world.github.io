@@ -287,14 +287,21 @@
   function bumpContrast() {
     // Soft muted text that fails AA on dark → lift to safer tones
     document.querySelectorAll('.text-muted').forEach((el) => {
-      const cs = getComputedStyle(el);
-      // ensure at least ~#a89f97 which we set in CSS; force if inherited weaker
       if (!el.closest('.blvd-gallery-attr')) {
         el.style.color = '#b7aea6';
       }
     });
     document.querySelectorAll('.text-ink-soft').forEach((el) => {
       el.style.color = '#d8d3ce';
+    });
+    document.querySelectorAll('.text-crimson, a.text-crimson, button.text-crimson, p.text-crimson').forEach((el) => {
+      // filled crimson buttons keep white text; only tint text-colored crimson
+      if (el.classList.contains('bg-crimson') || /bg-crimson/.test(el.className)) return;
+      el.style.color = '#e892b0';
+    });
+    document.querySelectorAll('.blvd-reasons-credits').forEach((el) => {
+      el.style.color = 'rgba(255,255,255,0.62)';
+      el.style.opacity = '1';
     });
   }
 

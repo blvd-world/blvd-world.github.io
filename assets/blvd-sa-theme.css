@@ -4,6 +4,8 @@
 
 :root {
   --sa-primary: #c33e6f;
+  --sa-primary-text: #e892b0;
+  --sa-muted-text: rgba(255, 255, 255, 0.62);
   --sa-purple: #9f3f87;
   --sa-magenta: #bd1c6a;
   --sa-orange: #e15e29;
@@ -56,7 +58,7 @@ html.blvd-pro body {
 .text-ink { color: var(--sa-ink) !important; }
 .text-ink-soft { color: var(--sa-ink-soft) !important; }
 .text-muted { color: var(--sa-muted) !important; }
-.text-crimson, .hover\:text-crimson:hover { color: var(--sa-primary) !important; }
+.text-crimson, .hover\:text-crimson:hover { color: var(--sa-primary-text, #e892b0) !important; }
 .text-gold, .text-gold\/90 { color: var(--sa-beige) !important; }
 .text-white { color: #fff !important; }
 
@@ -90,7 +92,7 @@ header a.shrink-0:hover {
   color: #fff !important;
   background: rgba(195, 62, 111, 0.18) !important;
 }
-header a.text-crimson { color: var(--sa-primary) !important; }
+header a.text-crimson { color: var(--sa-primary-text) !important; }
 header button {
   border-color: var(--sa-beige) !important;
   color: var(--sa-beige) !important;
@@ -476,3 +478,5 @@ footer .text-muted, footer p { color: var(--sa-muted) !important; }
 
 /* Contrast helpers for soft text on dark */
 .text-white\/80 { color: rgba(255,255,255,0.88) !important; }
+
+.blvd-reasons-credits { color: var(--sa-muted-text) !important; opacity: 1 !important; }
