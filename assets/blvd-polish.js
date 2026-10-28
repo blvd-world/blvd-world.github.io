@@ -7,9 +7,7 @@
   const ensureFab = () => {
     if (document.getElementById('blvd-wa-fab')) return;
     const host = (location.hostname || '').toLowerCase();
-    const href = host.includes('boulevard-world')
-      ? 'https://wa.me/966543333994'
-      : 'https://wa.me/966544902266';
+    const href = 'https://wa.me/966541102224';
     const a = document.createElement('a');
     a.id = 'blvd-wa-fab';
     a.className = 'blvd-wa-fab';
@@ -95,3 +93,113 @@
     return r;
   };
 })();
+
+/* —— PRO boot (blvd-world) —— */
+(function () {
+  const WA = 'https://wa.me/966541102224';
+  const DISPLAY = '00966541102224';
+
+  function ready(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  function enhance() {
+    document.body.classList.add('blvd-pro');
+
+    // Section numbering for major anchors
+    const order = [
+      ['momentum', '01'],
+      ['reasons', '02'],
+      ['about', '03'],
+      ['spain', '04'],
+      ['boards', '05'],
+      ['plan', '06'],
+      ['zones', '07'],
+      ['visit', '08'],
+      ['contact', '09'],
+    ];
+    order.forEach(([id, num]) => {
+      const sec = document.getElementById(id);
+      if (!sec || sec.querySelector('.blvd-sec-num')) return;
+      const kicker = sec.querySelector('p.latin, p.text-sm.font-medium, p.text-gold, .latin.text-sm');
+      if (!kicker) return;
+      const badge = document.createElement('span');
+      badge.className = 'blvd-sec-num';
+      badge.textContent = num;
+      const wrap = document.createElement('div');
+      wrap.className = 'blvd-sec-head';
+      kicker.parentNode.insertBefore(wrap, kicker);
+      wrap.appendChild(badge);
+      wrap.appendChild(kicker);
+    });
+
+    // Hero WA CTA — insert next to existing hero buttons if missing
+    if (!document.querySelector('.blvd-hero-cta-wa')) {
+      const h1 = document.querySelector('h1');
+      if (h1) {
+        let row = h1.parentElement && h1.parentElement.querySelector('.mt-8.flex, .mt-8.flex-wrap, div.mt-8');
+        if (!row) {
+          // find flex wrap near hero
+          const root = h1.closest('section, div') || h1.parentElement;
+          row = root && root.querySelector('.mt-8.flex, .flex.flex-wrap.gap-3');
+        }
+        const a = document.createElement('a');
+        a.className = 'blvd-hero-cta-wa';
+        a.href = WA;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.setAttribute('aria-label', 'تواصل واتساب ' + DISPLAY);
+        a.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.486 2 2 6.486 2 12c0 1.77.463 3.427 1.272 4.872L2.05 21.95l5.22-1.196A9.94 9.94 0 0 0 12 22c5.514 0 10-4.486 10-10S17.514 2 12 2zm0 18.125a8.1 8.1 0 0 1-4.25-1.19l-.305-.18-3.096.71.72-3.02-.198-.318A8.07 8.07 0 0 1 3.875 12 8.13 8.13 0 0 1 12 3.875 8.13 8.13 0 0 1 20.125 12 8.13 8.13 0 0 1 12 20.125z"/></svg><span dir="ltr">' + DISPLAY + '</span>';
+        if (row) row.appendChild(a);
+        else h1.insertAdjacentElement('afterend', a);
+      }
+    }
+
+    // Footer professional wrap
+    const footer = document.querySelector('footer');
+    if (footer && !footer.querySelector('.blvd-footer-pro')) {
+      const dossier = footer.querySelector('.dossier') || footer;
+      const kids = Array.from(dossier.children);
+      const wrap = document.createElement('div');
+      wrap.className = 'blvd-footer-pro';
+      const left = document.createElement('div');
+      const brand = document.createElement('p');
+      brand.className = 'blvd-footer-brand';
+      brand.textContent = 'بوليفارد وورلد — المنطقة الإسبانية';
+      left.appendChild(brand);
+      kids.forEach((el) => left.appendChild(el));
+      const right = document.createElement('div');
+      const wa = document.createElement('a');
+      wa.className = 'blvd-footer-wa';
+      wa.href = WA;
+      wa.target = '_blank';
+      wa.rel = 'noopener noreferrer';
+      wa.innerHTML = 'WhatsApp · <span dir="ltr">' + DISPLAY + '</span>';
+      right.appendChild(wa);
+      wrap.appendChild(left);
+      wrap.appendChild(right);
+      dossier.appendChild(wrap);
+    }
+
+    // Ensure reasons in sticky nav if missing
+    const nav = document.querySelector('header nav');
+    if (nav && !nav.querySelector('a[href="#reasons"]') && document.getElementById('reasons')) {
+      const a = document.createElement('a');
+      a.href = '#reasons';
+      a.textContent = 'الأسباب';
+      a.className = nav.querySelector('a')?.className || '';
+      const contact = nav.querySelector('a[href="#contact"]');
+      if (contact) nav.insertBefore(a, contact);
+      else nav.appendChild(a);
+    }
+  }
+
+  ready(() => {
+    enhance();
+    // Re-apply after hydration
+    setTimeout(enhance, 800);
+    setTimeout(enhance, 2000);
+  });
+})();
+

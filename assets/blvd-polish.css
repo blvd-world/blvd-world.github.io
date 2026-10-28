@@ -197,7 +197,7 @@ a[href*="wa.me"]:hover {
 }
 
 /* Also style contact-area WhatsApp (not only footer) */
-a[href="https://wa.me/966544902266"] {
+a[href="https://wa.me/966541102224"] {
   border-radius: 999px;
 }
 
@@ -413,3 +413,243 @@ canvas {
   line-height: 1.5;
 }
 .blvd-reasons-credits a { color: rgba(225,94,41,.85); text-decoration: underline; text-underline-offset: 2px; }
+
+
+/* —— Hero Spain display title —— */
+.blvd-hero-spain {
+  margin: 0 0 0.85rem;
+  max-width: 100%;
+}
+.blvd-hero-spain-title {
+  margin: 0;
+  font-family: "Tajawal", "IBM Plex Sans Arabic", sans-serif !important;
+  font-weight: 900 !important;
+  font-size: clamp(56px, 12vw, 140px) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.03em;
+  color: #1a1210 !important;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.45),
+    0 10px 40px rgba(195,62,111,.2),
+    0 2px 8px rgba(0,0,0,.18);
+}
+.blvd-hero-spain-sub {
+  margin: 0.4rem 0 0;
+  font-family: "Tajawal", "IBM Plex Sans Arabic", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.05rem, 2.6vw, 1.65rem) !important;
+  line-height: 1.3 !important;
+  color: #c33e6f !important;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 480px) {
+  .blvd-hero-spain-title { font-size: clamp(48px, 14vw, 72px) !important; }
+  .blvd-hero-spain { margin-bottom: 0.55rem; }
+}
+
+
+/* —— PRO layout pass (blvd-world only): hierarchy, spacing, polish —— */
+body.blvd-pro {
+  --blvd-space-1: 0.5rem;
+  --blvd-space-2: 1rem;
+  --blvd-space-3: 1.5rem;
+  --blvd-space-4: 2.5rem;
+  --blvd-space-5: 4rem;
+  --blvd-ink: #14110f;
+  --blvd-muted: #6b625c;
+  --blvd-line: rgba(20,17,15,.1);
+  --blvd-paper: #f7f1ea;
+  --blvd-accent: #b8325c;
+  --blvd-accent-2: #d45a2a;
+  --blvd-gold-soft: #c9a27a;
+}
+
+body.blvd-pro {
+  background: var(--blvd-paper) !important;
+  color: var(--blvd-ink) !important;
+}
+
+/* Sticky header — cleaner glass */
+body.blvd-pro header.sticky,
+body.blvd-pro header.no-print {
+  border-bottom: 1px solid var(--blvd-line) !important;
+  background: rgba(247,241,234,.92) !important;
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  box-shadow: 0 10px 30px -24px rgba(0,0,0,.55);
+}
+body.blvd-pro header nav {
+  gap: 0.25rem !important;
+}
+body.blvd-pro header nav a {
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  padding: 0.45rem 0.85rem !important;
+  color: var(--blvd-ink) !important;
+}
+body.blvd-pro header nav a:hover {
+  background: rgba(184,50,92,.1) !important;
+  color: var(--blvd-accent) !important;
+}
+
+/* Section rhythm + numbered headers */
+body.blvd-pro main > section,
+body.blvd-pro #root section[id],
+body.blvd-pro section[id] {
+  scroll-margin-top: 5.5rem;
+}
+body.blvd-pro .blvd-sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.35rem;
+}
+body.blvd-pro .blvd-sec-num {
+  font-family: "Space Grotesk", "Tajawal", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blvd-accent-2);
+  background: rgba(212,90,42,.1);
+  border: 1px solid rgba(212,90,42,.25);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+}
+body.blvd-pro .latin.text-gold,
+body.blvd-pro p.latin.text-sm.text-gold {
+  letter-spacing: 0.12em !important;
+  font-weight: 600 !important;
+}
+
+/* Unified type scale */
+body.blvd-pro {
+  font-size: 16px;
+}
+body.blvd-pro h1, body.blvd-pro .font-display.text-5xl,
+body.blvd-pro .font-display.text-7xl {
+  letter-spacing: -0.03em !important;
+}
+body.blvd-pro h2, body.blvd-pro .font-display.text-4xl {
+  letter-spacing: -0.025em !important;
+}
+body.blvd-pro p, body.blvd-pro li {
+  line-height: 1.75;
+}
+
+/* Cards / grids consistency */
+body.blvd-pro .blvd-reasons-grid,
+body.blvd-pro main .grid {
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+body.blvd-pro article.border,
+body.blvd-pro .border.border-line,
+body.blvd-pro .blvd-reason-card {
+  border-radius: 1.1rem !important;
+}
+
+/* Hero CTA strip */
+.blvd-hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  align-items: center;
+}
+.blvd-hero-cta-wa {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.55rem;
+  background: #25D366 !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  padding: 0.85rem 1.25rem !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  box-shadow: 0 10px 28px -12px rgba(37,211,102,.7);
+  transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+}
+.blvd-hero-cta-wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -10px rgba(37,211,102,.8);
+}
+.blvd-hero-cta-wa svg { width: 20px; height: 20px; fill: #fff; }
+
+/* Contact — single number prominence */
+body.blvd-pro #contact {
+  position: relative;
+}
+body.blvd-pro #contact .blvd-contact-card {
+  border: 1px solid var(--blvd-line);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 16px 40px -24px rgba(0,0,0,.35);
+}
+body.blvd-pro #contact a[href^="tel:"],
+body.blvd-pro #contact a[href*="wa.me"] {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+body.blvd-pro #contact ul.space-y-3 li {
+  padding-top: 1rem !important;
+}
+
+/* Professional footer */
+body.blvd-pro footer {
+  background: #14110f !important;
+  color: rgba(255,255,255,.72) !important;
+  border-top: none !important;
+}
+body.blvd-pro footer .dossier {
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem !important;
+}
+body.blvd-pro footer p {
+  color: rgba(255,255,255,.62) !important;
+  max-width: 52rem;
+  line-height: 1.7;
+}
+body.blvd-pro footer a { color: #25D366; }
+
+.blvd-footer-pro {
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .blvd-footer-pro {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+}
+.blvd-footer-brand {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #fff !important;
+  margin: 0 0 0.5rem;
+}
+.blvd-footer-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  color: #25D366 !important;
+  font-weight: 700;
+  text-decoration: none;
+  direction: ltr;
+}
+
+/* Mobile nav / spacing */
+@media (max-width: 768px) {
+  body.blvd-pro .dossier {
+    width: min(72rem, calc(100% - 1rem)) !important;
+  }
+  body.blvd-pro header nav a {
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+html { scroll-behavior: smooth; }

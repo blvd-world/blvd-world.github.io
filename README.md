@@ -2,7 +2,7 @@
 
 Static GitHub Pages mirror of https://bolyvardddd.grok.me/
 
-**Live:** https://blvdworld.github.io/
+**Live:** https://blvd-world.github.io/
 
 ## Routes
 - `/` — الملف التعريفي للمنطقة الإسبانية
