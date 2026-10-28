@@ -206,6 +206,9 @@
 
 (function(){
   var TITLE='أسبانيا', SUB='منطقة أسبانيا';
+  var __blvdHeroBusy=false;
+  var __blvdHeroRaf=0;
+  var __blvdHeroMo=null;
   function build(){
     var wrap=document.createElement('div');
     wrap.className='blvd-hero-spain';
@@ -222,7 +225,6 @@
     wrap.appendChild(t); wrap.appendChild(s);
     return wrap;
   }
-  var __blvdHeroBusy=false;
   function paint(el){
     if(!el) return;
     if(el.style.opacity!=='1') el.style.opacity='1';
@@ -253,6 +255,7 @@
     if(__blvdHeroBusy) return;
     __blvdHeroBusy=true;
     try{
+      if(__blvdHeroMo){ try{ __blvdHeroMo.disconnect(); }catch(e){} }
       var existing=document.querySelector('.blvd-hero-spain');
       if(existing){ paint(existing); return; }
       var main=document.querySelector('main#top, main');
@@ -270,17 +273,29 @@
         if(col) col.insertBefore(wrap, col.firstChild);
       }
     }catch(e){}
-    finally{ __blvdHeroBusy=false; }
+    finally{
+      __blvdHeroBusy=false;
+      if(__blvdHeroMo){
+        try{ __blvdHeroMo.observe(document.documentElement,{childList:true,subtree:true}); }catch(e){}
+      }
+    }
+  }
+  function schedule(){
+    if(__blvdHeroRaf) return;
+    __blvdHeroRaf=requestAnimationFrame(function(){
+      __blvdHeroRaf=0;
+      ensure();
+    });
   }
   ensure();
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ensure);
-  setTimeout(ensure, 0);
-  setTimeout(ensure, 250);
-  setTimeout(ensure, 1000);
-  setTimeout(ensure, 2500);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', schedule);
+  setTimeout(schedule, 0);
+  setTimeout(schedule, 250);
+  setTimeout(schedule, 1000);
+  setTimeout(schedule, 2500);
   try{
-    var mo=new MutationObserver(function(){ ensure(); });
-    mo.observe(document.documentElement,{childList:true,subtree:true});
-    setTimeout(function(){ try{mo.disconnect();}catch(e){} }, 8000);
+    __blvdHeroMo=new MutationObserver(function(){ schedule(); });
+    __blvdHeroMo.observe(document.documentElement,{childList:true,subtree:true});
+    setTimeout(function(){ try{ if(__blvdHeroMo) __blvdHeroMo.disconnect(); __blvdHeroMo=null; }catch(e){} }, 8000);
   }catch(e){}
 })();
