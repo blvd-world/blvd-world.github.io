@@ -1,0 +1,23 @@
+
+/* i18n language switcher + LTR Latin fonts */
+.blvd-lang-switch{display:flex;align-items:center;gap:.35rem;flex-shrink:0;margin-inline-start:.5rem}
+.blvd-lang-switch a{font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.72);border:1px solid rgba(201,169,106,.35);padding:.28rem .45rem;border-radius:999px;text-decoration:none;line-height:1;transition:color .15s,border-color .15s,background .15s}
+.blvd-lang-switch a:hover,.blvd-lang-switch a:focus-visible{color:#c9a96a;border-color:#c9a96a;outline:none}
+.blvd-lang-switch a[aria-current="page"]{color:#0a0a0b;background:#c9a96a;border-color:#c9a96a}
+html[lang="en"],html[lang="es"],html[lang="it"]{direction:ltr}
+html[lang="en"] body,html[lang="es"] body,html[lang="it"] body,
+html[lang="en"],html[lang="es"],html[lang="it"]{
+  font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif !important;
+}
+html[lang="en"] h1,html[lang="en"] h2,html[lang="en"] h3,
+html[lang="es"] h1,html[lang="es"] h2,html[lang="es"] h3,
+html[lang="it"] h1,html[lang="it"] h2,html[lang="it"] h3,
+html[lang="en"] .blvd-hero-spain-title,html[lang="es"] .blvd-hero-spain-title,html[lang="it"] .blvd-hero-spain-title{
+  font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif !important;
+  letter-spacing:0.01em;
+}
+html[lang="en"] .latin,html[lang="es"] .latin,html[lang="it"] .latin{font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif}
+@media (max-width:720px){
+  .blvd-lang-switch{gap:.2rem}
+  .blvd-lang-switch a{font-size:.65rem;padding:.22rem .36rem}
+}
