@@ -55,3 +55,20 @@
   setTimeout(mount, 500);
   setTimeout(mount, 1500);
 })();
+(function(){
+  var m=location.pathname.match(/^\/(en|es|it)(\/|$)/);
+  if(!m) return;
+  var lang=m[1];
+  function apply(){
+    document.documentElement.lang=lang;
+    document.documentElement.dir='ltr';
+  }
+  apply();
+  setTimeout(apply,0);
+  setTimeout(apply,100);
+  setTimeout(apply,500);
+  setTimeout(apply,1500);
+  new MutationObserver(function(){
+    if(document.documentElement.lang!==lang||document.documentElement.dir!=='ltr') apply();
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['lang','dir']});
+})();
